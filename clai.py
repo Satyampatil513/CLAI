@@ -1,6 +1,11 @@
 from memory import ShortTermMemory, LongTermMemory, EmbeddingManager, build_context
 import threading
 import time
+# Module-level singletons for heavy objects
+short_mem = ShortTermMemory()
+long_mem = LongTermMemory()
+embedder = EmbeddingManager()
+
 def store_in_long_term_memory(long_mem, info_type, name, path):
     """
     Store important information in long-term memory.
@@ -107,9 +112,6 @@ def is_command_executable(command):
 
 
 def main():
-    short_mem = ShortTermMemory()
-    long_mem = LongTermMemory()
-    embedder = EmbeddingManager()
     def get_user_approval(command):
         print(f"\nWARNING: The following command may be dangerous or resource-intensive:\n{command}")
         approval = input("Do you want to proceed? (yes/no): ").strip().lower()
@@ -135,6 +137,7 @@ def main():
         print()
         # Add context to the prompt
         history[-1]["content"] = context + "\n" + history[-1]["content"]
+        print("\nPrompt sent to Gemini:\n" + history[-1]["content"] + "\n")
 
         loading = show_loading()
         gemini_resp = get_gemini_response(client, model, history)
@@ -161,7 +164,13 @@ def main():
                 })
                 continue
 
-        output = execute_command(command)
+        try:
+            output = execute_command(command)
+        except Exception as e:
+            output = f"ERROR: {str(e)}"
+            print("\nCommand Error:\n", output)
+            history.append({"role": "model", "content": f"The command '{command}' resulted in an error: {output}. Please suggest an alternative or fix the command. Respond in JSON format."})
+            continue
         print("\nCommand Output:\n", output)
 
         # Update short-term memory
