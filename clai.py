@@ -137,7 +137,7 @@ def main():
         print()
         # Add context to the prompt
         history[-1]["content"] = context + "\n" + history[-1]["content"]
-        print("\nPrompt sent to Gemini:\n" + history[-1]["content"] + "\n")
+        # print("\nPrompt sent to Gemini:\n" + history[-1]["content"] + "\n")
 
         loading = show_loading()
         gemini_resp = get_gemini_response(client, model, history)
