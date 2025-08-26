@@ -7,8 +7,14 @@ CLAI is a smart, context-aware command line assistant for Windows. It can unders
 ## 🚀 Quick Start (Recommended: Standalone Executable)
 
 1. **Download the latest `clai.exe`** from the [GitHub Releases](https://github.com/Satyampatil513/CLAI/releases) page.
-2. **Place `clai.exe` in a folder that is in your system PATH** (e.g., `C:\Windows` or create a `C:\Tools` folder and add it to PATH).
-3. **Open a terminal (PowerShell or CMD) and run:**
+2. **Place `clai.exe` in a folder of your choice** (e.g., `C:\Tools\CLAI`).
+3. **Add that folder to your system PATH environment variable:**
+   - Open Windows Search and type `Environment Variables`.
+   - Click `Edit the system environment variables` → `Environment Variables...`.
+   - Under `System variables`, find and select `Path`, then click `Edit`.
+   - Click `New` and add the path to the folder where you placed `clai.exe` (e.g., `C:\Tools\CLAI`).
+   - Click OK to save and close all dialogs.
+4. **Open a new terminal (PowerShell or CMD) and run:**
    ```
    clai your prompt here
    ```
@@ -16,7 +22,7 @@ CLAI is a smart, context-aware command line assistant for Windows. It can unders
    ```
    clai list all folders in this directory
    ```
-4. **On first run,** you will be prompted for your Gemini API key. Enter it to create a `.env` file for future use.
+5. **On first run,** you will be prompted for your Gemini API key. Enter it to create a `.env` file for future use.
 
 ---
 
@@ -49,7 +55,7 @@ CLAI is a smart, context-aware command line assistant for Windows. It can unders
 ---
 
 ## 📝 Usage Notes
-- You can run `clai` from any directory if `clai.exe` is in your PATH.
+- You can run `clai` from any directory if the folder containing `clai.exe` is in your PATH.
 - The assistant will print all output in your terminal window.
 - Dangerous commands (like `del`) will require confirmation.
 - If you want to keep a log, use: `clai your prompt > output.txt`
@@ -58,7 +64,7 @@ CLAI is a smart, context-aware command line assistant for Windows. It can unders
 ---
 
 ## 🧠 How It Works
-- CLAI uses local semantic memory (FAISS + sentence-transformers) and Google Gemini for command generation.
+- CLAI uses local semantic memory (FAISS + fastembed) and Google Gemini for command generation.
 - All long-term memory is stored in `memory.sqlite` in the working directory.
 - No data is sent anywhere except to Gemini (for command generation).
 
@@ -75,7 +81,7 @@ CLAI is a smart, context-aware command line assistant for Windows. It can unders
 - If you want to build `clai.exe` yourself:
    ```
    pip install pyinstaller
-   pyinstaller --onefile --name clai clai.py
+   pyinstaller --onefile --name clai clai.py --hidden-import=numpy --hidden-import=faiss --hidden-import=fastembed
    ```
 - The executable will be in the `dist` folder.
 
