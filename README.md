@@ -2,6 +2,23 @@
 
 CLAI is a smart, context-aware command line assistant for Windows. It can understand natural language prompts, generate safe and relevant commands, and learn from your history.
 
+## 🆕 NEW: Stock Prediction System
+
+CLAI now includes a comprehensive **Stock Prediction System** for Indian Large Cap stocks! Predict buy/sell signals using technical analysis, fundamental metrics, and news sentiment analysis.
+
+**Quick Start:**
+```bash
+# Train the model
+python stock_predict.py train
+
+# Make predictions
+python stock_predict.py predict
+```
+
+📖 **[Complete Documentation](STOCK_PREDICTION_README.md)** | 🎯 Features: ML Models, Technical Indicators (RSI, MACD, etc.), News Sentiment, 20+ Large Cap Stocks
+
+⚠️ **Disclaimer:** For educational purposes only. Not financial advice.
+
 ---
 
 ## 🚀 Quick Start (Recommended: Standalone Executable)
